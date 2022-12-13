@@ -12,9 +12,14 @@ import { DockerImageAsset } from 'aws-cdk-lib/aws-ecr-assets';
 import * as path from 'path';
 import * as ecrdeploy from 'cdk-ecr-deployment';
 
+export interface ZamiksECRStackProps extends cdk.StackProps {
+    readonly adv_vpc: ec2.Vpc;
+    readonly sec_group: ec2.SecurityGroup;
+    readonly lb:elbv2.ApplicationLoadBalancer;
+}
 export class ZamiksECRStack extends cdk.Stack {
-    constructor(scope: Construct, id: string, props?: cdk.StackProps) {
-    super(scope, id, props);
+    constructor(scope: Construct, id: string, props: ZamiksECRStackProps) {
+    super(scope, id,{...props});
 
 
     const image = new DockerImageAsset(this, 'CDKDockerImage', {
@@ -29,18 +34,18 @@ export class ZamiksECRStack extends cdk.Stack {
       dest: new ecrdeploy.DockerImageName("079409546332.dkr.ecr.us-east-1.amazonaws.com/zamiks_ecr_repo"),
     });
 
-    const zamiks_vpc = new ec2.Vpc(this, "zamiks-vpc", {
-      cidr: "10.1.0.0/16",
-      natGateways: 1,
-      subnetConfiguration: [
-        {  cidrMask: 24, subnetType: ec2.SubnetType.PUBLIC, name: "Public" },
-        {  cidrMask: 24, subnetType: ec2.SubnetType.PRIVATE_ISOLATED, name: "Private" }
-        ],
-      maxAzs: 3 // Default is all AZs in region
-    });
+    //const zamiks_vpc = new ec2.Vpc(this, "zamiks-vpc", {
+    //  cidr: "10.1.0.0/16",
+    //  natGateways: 1,
+    //  subnetConfiguration: [
+    //    {  cidrMask: 24, subnetType: ec2.SubnetType.PUBLIC, name: "Public" },
+    //    {  cidrMask: 24, subnetType: ec2.SubnetType.PRIVATE_ISOLATED, name: "Private" }
+    //    ],
+    //  maxAzs: 3 // Default is all AZs in region
+    //});
 
     const zamiks_cluster = new ecs.Cluster(this, "ZamiksCluster", {
-      vpc: zamiks_vpc
+      vpc: props.adv_vpc
     });
 
     const zamiks_executionRolePolicy =  new iam.PolicyStatement({
@@ -82,16 +87,13 @@ export class ZamiksECRStack extends cdk.Stack {
       containerPort: 8081
     });
 
-    const sg_service = new ec2.SecurityGroup(this, 'MySGService', { vpc: zamiks_vpc });
-    sg_service.addIngressRule(ec2.Peer.ipv4('0.0.0.0/0'), ec2.Port.tcp(80));
-    sg_service.addIngressRule(ec2.Peer.ipv4('0.0.0.0/0'), ec2.Port.tcp(8081));
 
     const service = new ecs.FargateService(this, 'Service', {
       cluster: zamiks_cluster,
       taskDefinition: fargateTaskDefinition,
       desiredCount: 2,
       assignPublicIp: false,
-      securityGroups: [sg_service]
+      securityGroups: [props.sec_group]
     });
     
     // Setup AutoScaling policy
@@ -102,24 +104,19 @@ export class ZamiksECRStack extends cdk.Stack {
       scaleOutCooldown: Duration.seconds(60)
     });
 
-    const lb = new elbv2.ApplicationLoadBalancer(this, 'ALB', {
-      vpc:zamiks_vpc,
-      internetFacing: true
-    });
 
-    const listener = lb.addListener('Listener', {
+    const listener = props.lb.addListener('Listener', {
       port: 8081,
-      protocol: elbv2.ApplicationProtocol.HTTP
-      
+      protocol: elbv2.ApplicationProtocol.HTTP  
     });
-
+//
     listener.addTargets('Target', {
-      port: 8081,
+     port: 8081,
       protocol: elbv2.ApplicationProtocol.HTTP,
       targets: [service],
       healthCheck: { path: '/api/' }
     });
-
+//
     listener.connections.allowDefaultPortFromAnyIpv4('Open to the world');
     }
 }
