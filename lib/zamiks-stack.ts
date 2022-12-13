@@ -4,7 +4,7 @@ import { App, Duration } from "aws-cdk-lib";
 import {ZamiksECRStack} from './zamiks_ecr';
 import {ZamiksVPCStackADV} from './zamiks_vpc';
 import * as cdk from 'aws-cdk-lib';
-
+import {ZamiksCCCPStack} from './zamiks_codecommit_n_codepipeline'
 export class ZamiksStack extends Stack {
   constructor(scope: App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -23,5 +23,9 @@ export class ZamiksStack extends Stack {
 
     const ZamiksECRServer = new ZamiksECRStack(this, "zamiks_ecr_repo",ZamiksECRStackProps);
     
+    const ZamiksCCCPStackProps = {
+      service: ZamiksECRServer.service
+    };
+    const ZamiksCodeCommitCodePipeline = new ZamiksCCCPStack(this,"ZamiksCodeCommitCodePipeline", ZamiksCCCPStackProps)
   }
 }

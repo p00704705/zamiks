@@ -18,6 +18,7 @@ export interface ZamiksECRStackProps extends cdk.StackProps {
     readonly lb:elbv2.ApplicationLoadBalancer;
 }
 export class ZamiksECRStack extends cdk.Stack {
+    public readonly service:ecs.FargateService;
     constructor(scope: Construct, id: string, props: ZamiksECRStackProps) {
     super(scope, id,{...props});
 
@@ -88,7 +89,7 @@ export class ZamiksECRStack extends cdk.Stack {
     });
 
 
-    const service = new ecs.FargateService(this, 'Service', {
+    this.service = new ecs.FargateService(this, 'Service', {
       cluster: zamiks_cluster,
       taskDefinition: fargateTaskDefinition,
       desiredCount: 2,
@@ -97,7 +98,7 @@ export class ZamiksECRStack extends cdk.Stack {
     });
     
     // Setup AutoScaling policy
-    const scaling = service.autoScaleTaskCount({ maxCapacity: 6, minCapacity: 2 });
+    const scaling = this.service.autoScaleTaskCount({ maxCapacity: 6, minCapacity: 2 });
     scaling.scaleOnCpuUtilization('CpuScaling', {
       targetUtilizationPercent: 50,
       scaleInCooldown: Duration.seconds(60),
@@ -113,7 +114,7 @@ export class ZamiksECRStack extends cdk.Stack {
     listener.addTargets('Target', {
      port: 8081,
       protocol: elbv2.ApplicationProtocol.HTTP,
-      targets: [service],
+      targets: [this.service],
       healthCheck: { path: '/api/' }
     });
 //
