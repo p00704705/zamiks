@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+    commands:
+    - docker --version
+    - pip install --upgrade awscli
+    - aws --version
+    - node --version
+  pre_build:
+    commands:
+      - npm install
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 079409546332.dkr.ecr.us-east-1.amazonaws.com
+      - REPOSITORY_URI=079409546332.dkr.ecr.us-east-1.amazonaws.com/zamiks_ecr_repo
+  build:
+    commands:
+      - echo Build started on `date`
+      #- docker build -t $REPOSITORY_URI:latest .
+      - docker build -t p00704705/zamiks-app:1.0 .
+      #- docker tag $REPOSITORY_URI:latest
+      - docker tag p00704705/zamiks-app:1.0 079409546332.dkr.ecr.us-east-1.amazonaws.com/zamiks_ecr_repo
+  post_build:
+    commands:
+      - docker push 079409546332.dkr.ecr.us-east-1.amazonaws.com/zamiks_ecr_repo 
+      - echo Build completed on `date`
