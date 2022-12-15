@@ -1,0 +1,323 @@
+.dropdown-menu .divider {
+  height: 1px !important;
+  margin: 9px 0 !important;
+  overflow: hidden !important;
+  background-color: #e5e5e5 !important;
+  border-bottom: 1px !important;
+}
+
+/* Custom progress bars to use based on values */
+.progress-bar-0 {
+  background-color: #5cb85c;
+}
+
+.progress-bar-10 {
+  background-color: #89b84a;
+}
+
+.progress-bar-20 {
+  background-color: #aeb640;
+}
+
+.progress-bar-30 {
+  background-color: #d1b242;
+}
+
+.progress-bar-40 {
+  background-color: #f0ad4e;
+}
+
+.progress-bar-50 {
+  background-color: #ee9649;
+}
+
+.progress-bar-60 {
+  background-color: #ea8049;
+}
+
+.progress-bar-70 {
+  background-color: #e3694b;
+}
+
+.progress-bar-80 {
+  background-color: #d9534f;
+}
+
+.progress-bar-90 {
+  background-color: #d9534f;
+}
+
+/* Begin custom progress bars for different customers on Catzilla */
+/* agg together */
+.progress-bar-br-agg-r {
+  background-color: #b36a49;
+}
+
+/* Border Agg */
+.progress-bar-br-spg-r {
+  background-color: #f39063;
+}
+
+/* Spinal Agg */
+/* Catzilla predecessors together */
+.progress-bar-br-fab-f {
+  background-color: #fd7096;
+}
+
+/* Fatcat/Nazcat */
+/* lbe together */
+.progress-bar-br-lbe-p {
+  background-color: #bf71e6;
+}
+
+.progress-bar-br-lbe-n {
+  background-color: #aa64cc;
+}
+
+.progress-bar-br-lbe-j {
+  background-color: #8a52a6;
+}
+
+/* ec2 together */
+.progress-bar-br-svc-r {
+  background-color: #3e438c;
+}
+
+.progress-bar-es-svc-c {
+  background-color: #4f55b3;
+}
+
+/* Blackfoot XRP */
+.progress-bar-es-svc-p {
+  background-color: #6067d9;
+}
+
+/* Blackfoot */
+.progress-bar-es-svc-r {
+  background-color: #717aff;
+}
+
+/* prod together */
+.progress-bar-ws-tra-r {
+  background-color: #59bfde;
+}
+
+/* Fpod */
+.progress-bar-ws-svc-b {
+  background-color: #489ab3;
+}
+
+/* Blackfoot host for BFW */
+.progress-bar-br-snb-edg {
+  background-color: #2e6373;
+}
+
+/* Snowball */
+/* other */
+.progress-bar-unknown {
+  background-color: #f0ad4e;
+}
+
+/* unknown */
+.progress-bar-reserved {
+  background-color: #aaaaaa;
+}
+
+/* reserved */
+.progress-bar-none {
+  background-color: #d6d6d6;
+}
+
+/* none */
+.progress-double-height {
+  height: 40px;
+}
+
+.progress-dark-background {
+  position: relative;
+  background: #d6d6d6;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.progress-bar {
+  height: 100%;
+}
+
+.progress-label-centered {
+  position: absolute;
+  text-align: center;
+  line-height: 20px;
+  /* line-height should be equal to bar height */
+  overflow: hidden;
+  color: #fff;
+  right: 0;
+  left: 0;
+  top: 0;
+}
+
+/* End custom progress bars */
+/* Begin custom line spacing */
+.top5 {
+  margin-top: 5px;
+}
+
+.top7 {
+  margin-top: 7px;
+}
+
+.top10 {
+  margin-top: 10px;
+}
+
+.top15 {
+  margin-top: 15px;
+}
+
+.top17 {
+  margin-top: 17px;
+}
+
+.top30 {
+  margin-top: 30px;
+}
+
+/* End custom line spacing */
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 100px;
+}
+
+.footer {
+  position: absolute;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 80px;
+  background-color: #f5f5f5;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+body > .container {
+  padding: 60px 15px 0;
+}
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
+/* End sticky footer styles */
+/* Define dotted underlines used for toggle text */
+.dotted-underline-toggle {
+  border-bottom: 1px dotted green;
+  text-decoration: none;
+  color: green;
+  cursor: hand;
+  cursor: pointer;
+}
+
+.dotted-underline-toggle:hover {
+  border-bottom: none;
+  color: black;
+}
+
+/* End dotted underline toggles */
+.quarter-rule {
+  margin-left: 0;
+  text-align: left;
+  width: 25%;
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+/* style set for backbone port map */
+.portmap_IN_USE {
+  color: #228b22;
+  background-color: #90ee90;
+}
+
+.portmap_IN_USE a:link {
+  color: #228b22;
+}
+
+.portmap_OPERATIONAL {
+  color: #228b22;
+  background-color: #90ee90;
+}
+
+.portmap_ALLOCATED {
+  color: #228b22;
+  background-color: #c6efce;
+}
+
+.portmap_ALLOCATED a:link {
+  color: #228b22;
+}
+
+.portmap_PRE_ALLOCATED {
+  color: #808080;
+  background-color: #fffacd;
+}
+
+.portmap_UN_ALLOCATED {
+  color: #808080;
+  background-color: #f8f8ff;
+}
+
+.portmap_IN_USE_OTHER {
+  color: #808080;
+  background-color: #f08080;
+}
+
+.portmap_router_num {
+  text-decoration: underline;
+  background-color: #f5fffa;
+}
+
+.portmap_router_num a:link {
+  font-size: 120%;
+}
+
+.portmap_brick_id {
+  color: #808080;
+  background-color: #e0ffff;
+}
+
+.portmap_port {
+  background-color: #f5fffa;
+}
+
+#csv_button_container {
+  float: left;
+  width: 100%;
+  padding-left: 5px;
+}
+
+.dataTables_filter {
+  float: left;
+  width: 50%;
+}
+
+.dataTables_length {
+  float: left;
+  width: 50%;
+}

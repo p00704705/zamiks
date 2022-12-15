@@ -62,7 +62,7 @@ export class ZamiksECRStack extends cdk.Stack {
             ]
     });
     
-    const fargateTaskDefinition = new ecs.FargateTaskDefinition(this, 'ApiTaskDefinition', {
+    const fargateTaskDefinition = new ecs.FargateTaskDefinition(this, 'ZamiksTaskDefinition', {
       memoryLimitMiB: 2048,
       cpu: 1024,
     });
@@ -115,7 +115,7 @@ export class ZamiksECRStack extends cdk.Stack {
      port: 8081,
       protocol: elbv2.ApplicationProtocol.HTTP,
       targets: [this.service],
-      healthCheck: { path: '/api/' }
+      healthCheck: { path: '/' }
     });
 //
     listener.connections.allowDefaultPortFromAnyIpv4('Open to the world');

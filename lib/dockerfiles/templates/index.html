@@ -1,9 +1,21 @@
-<!doctype html>
-<html>
-  <head>
-    <title>This is the title of the webpage!</title>
-  </head>
-  <body>
-    <h1>This is ZAMIKS Home Page!!!</h1>
-  </body>
-</html>
+{% extends "base.html" %} {% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <br />
+      <br />
+      <center>
+        <h1>Welcome to ZAMIKS</h1>
+        <h3 style="color: slategray">Zamiks is under development.</h3>
+        <h4 style="color: slategray">
+          To obtain the latest 
+          <a href="https://tiny.zamiks.com/"
+            >the Folder</a
+          >
+        </h4>
+        <!-- <h5 style="color:slategray">Please report any issues, feedback and ideas to ensa-eng@</h5>-->
+      </center>
+    </div>
+  </div>
+</div>
+{% endblock %}

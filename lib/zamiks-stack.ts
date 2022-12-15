@@ -5,6 +5,7 @@ import {ZamiksECRStack} from './zamiks_ecr';
 import {ZamiksVPCStackADV} from './zamiks_vpc';
 import * as cdk from 'aws-cdk-lib';
 import {ZamiksCCCPStack} from './zamiks_codecommit_n_codepipeline'
+import {ZamiksDynamodbStack} from './zamiks_ddb'
 export class ZamiksStack extends Stack {
   constructor(scope: App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -20,12 +21,20 @@ export class ZamiksStack extends Stack {
       sec_group:ADVZamiksVPCStack.sg_service,
       lb:ADVZamiksVPCStack.lb
     };
-
     const ZamiksECRServer = new ZamiksECRStack(this, "zamiks_ecr_repo",ZamiksECRStackProps);
     
+    const ZamiksDynamodbStackProps = {
+          tableName: "zamiks_temperature",
+          partitionKeyName: "temperature",
+    };
+    const ZamiksDynamodb = new ZamiksDynamodbStack(this,'ZamiksDynamodbStack',ZamiksDynamodbStackProps)
+
+
     const ZamiksCCCPStackProps = {
       service: ZamiksECRServer.service
     };
     const ZamiksCodeCommitCodePipeline = new ZamiksCCCPStack(this,"ZamiksCodeCommitCodePipeline", ZamiksCCCPStackProps)
+
+
   }
 }

@@ -1,3 +1,4 @@
+
 version: 0.2
 
 phases:
@@ -25,3 +26,6 @@ phases:
     commands:
       - docker push 079409546332.dkr.ecr.us-east-1.amazonaws.com/zamiks_ecr_repo 
       - echo Build completed on `date`
+      - printf '[{"name":"backend","imageUri":"%s"}]' 079409546332.dkr.ecr.us-east-1.amazonaws.com/zamiks_ecr_repo > imagedefinitions.json
+artifacts:
+  files: imagedefinitions.json

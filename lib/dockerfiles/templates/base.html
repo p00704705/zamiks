@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="shortcut icon" href="/images/favicon.ico" type=“image/x-icon”>
+    <meta charset="utf-8" />
+    {% if title %}
+    <title>{{title}}</title>
+    {% else %}
+    <title>ZAMIKS</title>
+    {% endif %}
+    <!-- Core CSS -->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://m.media-amazon.com/images/G/01/oneg/assets/3.2.6/css/application.min.css"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="/static/css/spaceneedle.css?v=1113awh"
+    />
+    <!-- Core Javascript. -->
+    <script
+      type="text/javascript"
+      src="https://m.media-amazon.com/images/G/01/oneg/assets/3.2.6/js/application.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://m.media-amazon.com/images/G/01/oneg/assets/3.2.6/js/js-extras.min.js"
+    ></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target="#bs-docs-example-navbar-collapse-1"
+          >
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/" style="color: greenyellow"
+            >ZAMIKS</a
+          >
+        </div>
+      </div>
+      <!-- </div> -->
+    </nav>
+    <!-- Begin page content -->
+    {% block content %}{% endblock %}
+    <!-- End page content -->
+  </body>
+  <!-- Page footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="text-muted">
+        Developed by Zamiks.
+        <br />
+        <a href="https://">Zamiks</a> •
+        <a href="mailto:petermekhail01@gmail.com">Contact Us</a>
+      </p>
+    </div>
+  </footer>
+</html>
