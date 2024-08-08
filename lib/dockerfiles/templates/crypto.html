@@ -66,7 +66,18 @@
             <textarea id="decryptInput" placeholder="Enter text to decrypt..."></textarea>
             <textarea class="result-box" id="decryptResult" placeholder="Decrypted text will appear here..." readonly></textarea>
         </div>
-        <button onclick="decryptText()">Decrypt</button>
+        <div class="flex-container">
+            <select id="shifter2" class="shifter">
+                <option value="1">1</option>
+                <!-- Generate options from 1 to 366 -->
+                <script>
+                    for (let i = 2; i <= 366; i++) {
+                        document.write(`<option value="${i}">${i}</option>`);
+                    }
+                </script>
+            </select>
+            <button onclick="decryptText()">Decrypt</button>
+        </div>
     </div>
 
     <script>
@@ -89,13 +100,19 @@
 
         function decryptText() {
             const input = document.getElementById('decryptInput').value;
-            // Placeholder for your decryption function
-            try {
-                const decrypted = atob(input); // Example decryption (Base64)
-                document.getElementById('decryptResult').value = decrypted;
-            } catch (e) {
-                document.getElementById('decryptResult').value = 'Invalid input for decryption.';
-            }
+            const shifterValue = document.getElementById('shifter2').value;
+            fetch('/decrypt', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: input, shifter: shifterValue })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('decryptResult').value = data.decrypted_text;
+            })
+            .catch(error => console.error('Error:', error));
         }
     </script>
 

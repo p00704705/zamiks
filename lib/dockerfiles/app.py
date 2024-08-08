@@ -61,6 +61,20 @@ def encrypt():
     encrypted_text = cryptic(input_text, 'encrypt', shifter_value)
     return jsonify({'encrypted_text': encrypted_text})
 
+@app.route('/decrypt', methods=['POST'])
+def decrypt():
+    data = request.json
+    input_text = data.get('text', '')
+    shifter_value = int(data.get('shifter', 1))  # Get the shifter value, default to 1
+    # Replace this with your actual encryption logic, possibly using shifter_val
+
+    input_text = data.get('text', '')
+    print(input_text)
+    print(shifter_value)
+    # Replace this with your actual encryption logic
+    decrypted_text = cryptic(input_text, 'decrypt', shifter_value)
+    return jsonify({'decrypted_text': decrypted_text})
+
 if __name__ == '__main__':
           
     app.run(threaded=True,host='0.0.0.0',port=8081,debug=True)

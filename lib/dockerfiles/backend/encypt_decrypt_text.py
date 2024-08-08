@@ -7,13 +7,13 @@ def cryptic(text, process, shifter):
     message = text
     process = process
     shift = shifter
-    print(text, process, shifter)
+    # print(text, process, shifter)
     while process not in ('encrypt', 'decrypt'):
         process = input("Invalid process. Enter 'encrypt' or 'decrypt': ")
     # shift = int(input("Shift value (1-366) = "))
     while not 1 <= shift <= 366:
         shift = int(input("Invalid value. Enter digit from 1 to 366: "))
-    infile = input("Enter filename with extension: ")
+    infile = "/home/zamikx/Desktop/sys/zamiks/lib/dockerfiles/backend/txt/story_1.txt"#input("Enter filename with extension: ")
     if not os.path.exists(infile):
         print("File {} not found. Terminating.".format(infile), file=sys.stderr)
         sys.exit(1)        
@@ -45,10 +45,12 @@ def cryptic(text, process, shifter):
         print("decrypted plaintext = ")  
         for i in ciphertext:
             print(text[i - shift], end='', flush=True)
+        return ciphertext
 
     elif process == 'decrypt':
         plaintext = decrypt(message, text, shift)
         print("\ndecrypted plaintext = \n {}".format(plaintext))
+        return plaintext 
         
 
 def load_file(infile):
@@ -81,10 +83,14 @@ def encrypt(message, char_dict):
 
 def decrypt(message, text, shift):
     """Decrypt ciphertext list and return plaintext string."""
+    print(f"shift is {shift}")
+    print(message)
     plaintext = ''
-    indexes = [s.replace(',', '').replace('[', '').replace(']', '')
-               for s in message.split()]
+    indexes = [s.replace(',', '').replace('[', '').replace(']', '') for s in message.split(',')]
+    print("indexes are : ")
+    print(indexes)
     for i in indexes:
+        print(int(i))
         plaintext += text[int(i) - shift]
     return plaintext
 
