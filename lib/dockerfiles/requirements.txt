@@ -114,3 +114,5 @@ xdg==5
 xkit==0.0.0
 zipp==1.0.0
 requests==2.15.1
+matplotlib==3.9.2
+numpy==2.1.2

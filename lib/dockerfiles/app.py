@@ -1,5 +1,5 @@
 from flask import render_template
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -11,7 +11,14 @@ def home():
 def blog():
     return "Hello, from Zamikx App!!"
 
+@app.route('/help')
+def help():
+    return render_template('help.html')
 
+@app.route('/summarise')
+def summarise():
+    user_input = request.form.get('user_input')
+    return render_template('summarise.html')
 
 if __name__ == '__main__':
-    app.run(threaded=True,host='0.0.0.0',port=8081)
+    app.run(threaded=True,host='0.0.0.0',port=8081,debug=True)

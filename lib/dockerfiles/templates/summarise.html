@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% block content %}
+<h3 style="text-align: center" class="text-muted">Summarise Text</h3>
+<ul style="text-align: center; padding: 0"></ul>
+<br />
+<style>
+  .help {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    margin: 100px;
+    padding: 20px;
+  }
+</style>
+<body>
+    <h1>Enter text to summarise</h1>
+    <form action="/submit" method="POST">
+        <input type="text" name="user_input" placeholder="Type something..." required>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+{% endblock %}
