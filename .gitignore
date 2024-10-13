@@ -6,3 +6,5 @@ node_modules
 # CDK asset staging directory
 .cdk.staging
 cdk.out
+
+lib/dockerfiles/__pycache__/app.cpython-310.pyc
