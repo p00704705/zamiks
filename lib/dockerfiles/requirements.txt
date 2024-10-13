@@ -1,11 +1,11 @@
-awsebcli==3.14.4
+#awsebcli==3.14.4
 blessed==1.15.0
 cached-property==1.4.3
 cement==2.8.2
-docker==3.5.0
-docker-compose==1.21.2
-docker-pycreds==0.3.0
-dockerpty==0.4.1
+#docker==3.5.0
+#docker-compose==1.21.2
+#docker-pycreds==0.3.0
+#dockerpty==0.4.1
 docopt==0.6.2
 jsonschema==2.6.0
 pathspec==0.5.5
@@ -16,7 +16,7 @@ texttable==0.9.1
 wcwidth==0.1.7
 websocket-client==0.51.0
 apturl==0.5.2
-awscli==1.22.34
+# awscli==1.22.34
 Babel==2.8.0
 bcrypt==3.2.0
 beautifulsoup4==4.12.3
@@ -106,13 +106,13 @@ ubuntu-drivers-common==0.0.0
 ubuntu-pro-client==8001
 ufw==0.36.1
 unattended-upgrades==0.1
-urllib3==1.26.5
+urllib3==2.2.3
 usb-creator==0.3.7
 wadllib==1.3.6
 Werkzeug==2.0.2
 xdg==5
 xkit==0.0.0
 zipp==1.0.0
-requests==2.15.1
-matplotlib==3.9.2
-numpy==2.1.2
+requests==2.32.3
+#matplotlib==3.9.2
+#numpy==2.1.2
