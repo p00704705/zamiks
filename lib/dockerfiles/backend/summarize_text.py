@@ -11,21 +11,20 @@ from nltk.corpus import stopwords
 def summarize(max_words, num_sents, url, user_text):
     # Use webscraping to obtain the text.
     if url:
-        url = 'http://www.analytictech.com/mb021/mlk.htm'
         page = requests.get(url)
         page.raise_for_status()
         soup = bs4.BeautifulSoup(page.text, 'html.parser')
         p_elems = [element.text for element in soup.find_all('p')]
 
-        speech = ' '.join(p_elems)  # Make sure to join on a space!
+        text = ' '.join(p_elems)  # Make sure to join on a space!
     else:
-        speech = user_text
+        text = user_text
 
     # Fix typos, remove extra spaces, digits, and punctuation.
-    speech = speech.replace(')mowing', 'knowing')
-    speech = re.sub('\s+', ' ', speech) 
-    speech_edit = re.sub('[^a-zA-Z]', ' ', speech)
-    speech_edit = re.sub('\s+', ' ', speech_edit)
+    text = text.replace(')mowing', 'knowing')
+    text = re.sub('\s+', ' ', text) 
+    text_edit = re.sub('[^a-zA-Z]', ' ', text)
+    text_edit = re.sub('\s+', ' ', text_edit)
 
     # Request input.
     
@@ -33,9 +32,9 @@ def summarize(max_words, num_sents, url, user_text):
     num_sents = num_sents
                       
     # Run functions to generate sentence scores.
-    speech_edit_no_stop = remove_stop_words(speech_edit)
+    speech_edit_no_stop = remove_stop_words(text_edit)
     word_freq = get_word_freq(speech_edit_no_stop)
-    sent_scores = score_sentences(speech, word_freq, max_words)
+    sent_scores = score_sentences(text, word_freq, max_words)
 
     # Print the top-ranked sentences.
     counts = Counter(sent_scores)
