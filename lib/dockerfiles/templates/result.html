@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% block content %}
+<ul style="text-align: center; padding: 0"></ul>
+<br />
+<style>
+  .help {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    margin: 100px;
+    padding: 20px;
+  }
+</style>
+
+<body>
+    <h1>Summary Result</h1>
+    <p> {{ result | safe }} </p>
+    <a href="/">Go Back</a>
+</body>
+{% endblock %}
+
+

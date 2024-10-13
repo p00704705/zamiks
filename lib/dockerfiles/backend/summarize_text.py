@@ -7,15 +7,19 @@ import bs4
 import nltk
 from nltk.corpus import stopwords
 
-def main():
-    # Use webscraping to obtain the text.
-    url = 'http://www.analytictech.com/mb021/mlk.htm'
-    page = requests.get(url)
-    page.raise_for_status()
-    soup = bs4.BeautifulSoup(page.text, 'html.parser')
-    p_elems = [element.text for element in soup.find_all('p')]
 
-    speech = ' '.join(p_elems)  # Make sure to join on a space!
+def summarize(max_words, num_sents, url, user_text):
+    # Use webscraping to obtain the text.
+    if url:
+        url = 'http://www.analytictech.com/mb021/mlk.htm'
+        page = requests.get(url)
+        page.raise_for_status()
+        soup = bs4.BeautifulSoup(page.text, 'html.parser')
+        p_elems = [element.text for element in soup.find_all('p')]
+
+        speech = ' '.join(p_elems)  # Make sure to join on a space!
+    else:
+        speech = user_text
 
     # Fix typos, remove extra spaces, digits, and punctuation.
     speech = speech.replace(')mowing', 'knowing')
@@ -24,13 +28,9 @@ def main():
     speech_edit = re.sub('\s+', ' ', speech_edit)
 
     # Request input.
-    while True:
-        max_words = input("Enter max words per sentence for summary: ")
-        num_sents = input("Enter number of sentences for summary: ")
-        if max_words.isdigit() and num_sents.isdigit():
-            break
-        else:
-            print("\nInput must be in whole numbers.\n")
+    
+    max_words = max_words
+    num_sents = num_sents
                       
     # Run functions to generate sentence scores.
     speech_edit_no_stop = remove_stop_words(speech_edit)
@@ -40,9 +40,14 @@ def main():
     # Print the top-ranked sentences.
     counts = Counter(sent_scores)
     summary = counts.most_common(int(num_sents))
+    result_summary = ""
     print("\nSUMMARY:")
     for i in summary:
-        print(i[0])
+        # print(i[0])
+        result_summary += '<br>' + i[0] +'</br>' 
+    print(result_summary)
+    return result_summary
+
 
 def remove_stop_words(speech_edit):
     """Remove stop words from string and return string."""
@@ -72,6 +77,3 @@ def score_sentences(speech, word_freq, max_words):
                     sent_scores[sent] += word_freq[word]
             sent_scores[sent] = sent_scores[sent] / sent_word_count
     return sent_scores
-
-if __name__ == '__main__':
-    main()
