@@ -1,7 +1,7 @@
 from flask import render_template
 from flask import Flask, request
 from backend.summarize_text import summarize
-
+from backend.mongdb_connect import store_text
 
 app = Flask(__name__)
 
@@ -26,10 +26,16 @@ def submit():
     user_text = request.form.get('user_text') if input_type == 'text' else None
 
     # Call the summarize function
-    result = summarize(max_words, num_sents, url, user_text)
+    summarized_text = summarize(max_words, num_sents, url, user_text)
+
+    original_text = """This is an example of a large block of text that represents the original content.
+    It can be multiple sentences long and may include various details that are important for summarization."""
+   
+   
+    store_text(user_text, summarized_text)
 
     # Redirect to a result page or render a template with the result
-    return render_template('result.html', result=result)
+    return render_template('result.html', result=summarized_text)
 
 
 @app.route('/summarize')
