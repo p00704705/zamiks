@@ -1,5 +1,6 @@
 import json
 import boto3
+from cryptography.fernet import Fernet
 from botocore.exceptions import ClientError
 
 def get_secret(secret_name):
@@ -18,4 +19,24 @@ def get_secret(secret_name):
    
     except ClientError as e:
         print(f"Error retrieving secret: {e}")
-        return None , None
+        # Step 1: Load the key (retrieved securely from an environment variable, AWS Secrets Manager, etc.)
+        key = b'your-generated-encryption-key'  # This should be securely retrieved
+
+        # Step 2: Use the key to create a cipher object
+        cipher = Fernet(key)
+
+        # Step 3: Read the encrypted file
+        with open('config.enc', 'rb') as enc_file:
+            encrypted_data = enc_file.read()
+
+        # Step 4: Decrypt the file
+        decrypted_data = cipher.decrypt(encrypted_data)
+
+        # Step 5: Parse the decrypted data as JSON (if your config was JSON formatted)
+        config = json.loads(decrypted_data)
+
+        # Step 6: Access the sensitive data in your code
+        username = config['username']
+        password = config['password']
+        return username , password
+
