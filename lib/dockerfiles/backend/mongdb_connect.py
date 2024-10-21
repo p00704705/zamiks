@@ -11,19 +11,18 @@ def connect_to_mongo():
    
     if username is None or password is None:
         raise Exception("Failed to retrieve MongoDB credentials.")
-   
-    db_name = "text_summary_db"  # name of your database
 
     # URL encode the username and password
     username = quote_plus(username)
     password = quote_plus(password)
 
     # Create the MongoDB connection string
-    connection_string = f"mongodb+srv://{username}:{password}@cluster0.mongodb.net/{db_name}?retryWrites=true&w=majority"
+    connection_string = f"mongodb+srv://{username}:{password}@zamikx-db-cluster.joklu.mongodb.net/?retryWrites=true&w=majority&appName=zamikx-db-cluster"
    
     # Create a MongoDB client
     client = MongoClient(connection_string)
-   
+    db_name = "zamikx-db"
+
     # Access the database
     db = client[db_name]
    
