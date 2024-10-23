@@ -3,12 +3,14 @@ import os
 import random
 from collections import defaultdict, Counter
 
-def main():
-    message = input("Enter plaintext or ciphertext: ") 
-    process = input("Enter 'encrypt' or 'decrypt': ")
+def cryptic(text, process, shifter):
+    message = text
+    process = process
+    shift = shifter
+    print(text, process, shifter)
     while process not in ('encrypt', 'decrypt'):
         process = input("Invalid process. Enter 'encrypt' or 'decrypt': ")
-    shift = int(input("Shift value (1-366) = "))
+    # shift = int(input("Shift value (1-366) = "))
     while not 1 <= shift <= 366:
         shift = int(input("Invalid value. Enter digit from 1 to 366: "))
     infile = input("Enter filename with extension: ")
