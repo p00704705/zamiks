@@ -1,6 +1,6 @@
 from flask import render_template
 from flask import Flask, request, jsonify
-from backend.summarize_text import summarize
+from backend.summarize_text import summarize_text
 from backend.mongdb_connect import store_text
 from backend.encypt_decrypt_text import cryptic
 
@@ -27,7 +27,7 @@ def submit():
     user_text = request.form.get('user_text') if input_type == 'text' else None
 
     # Call the summarize function
-    summarized_text = summarize(max_words, num_sents, url, user_text)
+    summarized_text = summarize_text(max_words, num_sents, url, user_text)
 
     original_text = """This is an example of a large block of text that represents the original content.
     It can be multiple sentences long and may include various details that are important for summarization."""

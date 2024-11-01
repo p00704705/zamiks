@@ -8,7 +8,7 @@ import nltk
 from nltk.corpus import stopwords
 
 
-def summarize(max_words, num_sents, url, user_text):
+def summarize_text(max_words, num_sents, url, user_text):
     # Use webscraping to obtain the text.
     if url:
         page = requests.get(url)
