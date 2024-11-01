@@ -40,7 +40,7 @@ def submit():
 
 
 @app.route('/summarize')
-def summarise():
+def summarize():
     return render_template('summarize.html')
 
 @app.route('/encrydecryp')
