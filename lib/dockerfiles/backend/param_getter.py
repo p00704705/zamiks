@@ -2,6 +2,9 @@ import json
 import boto3
 from cryptography.fernet import Fernet
 from botocore.exceptions import ClientError
+import os
+
+
 
 def get_secret(secret_name):
     """Retrieve a secret from AWS Secrets Manager."""
@@ -19,11 +22,14 @@ def get_secret(secret_name):
    
     except ClientError as e:
         print(f"Error retrieving secret: {e}")
+        encryption_key = os.getenv("ZAMIKX_ENCRYPTION_KEY")
+        if encryption_key is None:
+            raise ValueError("ENCRYPTION_KEY environment variable not set.")
         # Step 1: Load the key (retrieved securely from an environment variable, AWS Secrets Manager, etc.)
-        key = b'your-generated-encryption-key'  # This should be securely retrieved
+        # key = b'your-generated-encryption-key'  # This should be securely retrieved
 
         # Step 2: Use the key to create a cipher object
-        cipher = Fernet(key)
+        cipher = Fernet(encryption_key)
 
         # Step 3: Read the encrypted file
         with open('config.enc', 'rb') as enc_file:
