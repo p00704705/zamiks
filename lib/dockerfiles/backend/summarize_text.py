@@ -21,10 +21,10 @@ def summarize_text(max_words, num_sents, url, user_text):
         text = user_text
 
     # Fix typos, remove extra spaces, digits, and punctuation.
-    text = text.replace(')mowing', 'knowing')
-    text = re.sub('\s+', ' ', text) 
+    text = re.sub(r'\s+', ' ', text) 
     text_edit = re.sub('[^a-zA-Z]', ' ', text)
-    text_edit = re.sub('\s+', ' ', text_edit)
+    text_edit = re.sub(r'\s+', ' ', text_edit)
+    text_edit = re.sub(r"[-_()\[\]{}<>]", "", text_edit)
 
     # Request input.
     

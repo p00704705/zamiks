@@ -21,7 +21,7 @@ def get_secret(secret_name):
         return secret['MONGO_USER'], secret['MONGO_PASS']
    
     except ClientError as e:
-        print(f"Error retrieving secret: {e}")
+        print(f"Error retrieving secret from AWS KMS: {e}")
         encryption_key = os.getenv("ZAMIKX_ENCRYPTION_KEY")
         if encryption_key is None:
             raise ValueError("ENCRYPTION_KEY environment variable not set.")
@@ -32,7 +32,7 @@ def get_secret(secret_name):
         cipher = Fernet(encryption_key)
 
         # Step 3: Read the encrypted file
-        with open('config.enc', 'rb') as enc_file:
+        with open('backend/config.enc', 'rb') as enc_file:
             encrypted_data = enc_file.read()
 
         # Step 4: Decrypt the file

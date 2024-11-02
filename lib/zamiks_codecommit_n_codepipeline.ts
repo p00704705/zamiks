@@ -6,6 +6,7 @@ import * as codepipeline from 'aws-cdk-lib/aws-codepipeline';
 import * as codepipeline_actions from 'aws-cdk-lib/aws-codepipeline-actions';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as ecs from 'aws-cdk-lib/aws-ecs';
+import { PipelineType } from 'aws-cdk-lib/aws-codepipeline';
 
 export interface ZamiksCCCPStackProps extends cdk.StackProps  {
     readonly service: ecs.FargateService;
@@ -63,6 +64,7 @@ export class ZamiksCCCPStack extends cdk.Stack {
     });
     
     new codepipeline.Pipeline(this, 'ZamiksPipeline', {
+      pipelineType: PipelineType.V2,
       stages: [
         {
           stageName: 'Source',
